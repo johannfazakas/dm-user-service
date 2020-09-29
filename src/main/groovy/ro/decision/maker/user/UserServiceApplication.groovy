@@ -1,13 +1,12 @@
-package ro.decision.maker.account
+package ro.decision.maker.user
 
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 
 @SpringBootApplication
-class AccountServiceApplication {
+class UserServiceApplication {
 
 	static void main(String[] args) {
-		SpringApplication.run(AccountServiceApplication, args)
+		SpringApplication.run(UserServiceApplication, args)
 	}
-
 }

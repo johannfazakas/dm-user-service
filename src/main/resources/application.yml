@@ -1,2 +1,2 @@
-spring.application.name: dm-account-service
+spring.application.name: dm-user-service
 server.port: 9010
