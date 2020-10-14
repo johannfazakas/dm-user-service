@@ -7,6 +7,8 @@ import ro.decision.maker.user.transfer.LoginInput
 import ro.decision.maker.user.transfer.UserInput
 import ro.decision.maker.user.transfer.UserOutput
 
+import javax.validation.Valid
+
 import static org.springframework.http.HttpStatus.CREATED
 import static org.springframework.http.HttpStatus.OK
 
@@ -31,7 +33,7 @@ class UserController {
 
     @PostMapping("/login")
     @ResponseStatus(OK)
-    UserOutput login(@RequestBody LoginInput input) {
+    UserOutput login(@Valid @RequestBody LoginInput input) {
         log.info("login >> ${input}")
 
         return new UserOutput(
@@ -42,10 +44,9 @@ class UserController {
         )
     }
 
-
     @PostMapping
     @ResponseStatus(CREATED)
-    UserOutput create(@RequestBody UserInput input) {
+    UserOutput create(@Valid @RequestBody UserInput input) {
         log.info("create >> ${input}")
 
         return new UserOutput(
