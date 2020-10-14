@@ -1,22 +1,58 @@
 package ro.decision.maker.user.web
 
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.ResponseStatus
-import org.springframework.web.bind.annotation.RestController
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
+import org.springframework.web.bind.annotation.*
+import ro.decision.maker.user.transfer.LoginInput
+import ro.decision.maker.user.transfer.UserInput
 import ro.decision.maker.user.transfer.UserOutput
 
+import static org.springframework.http.HttpStatus.CREATED
 import static org.springframework.http.HttpStatus.OK
 
 @RestController
 @RequestMapping("/api/user/v1/users")
 class UserController {
 
-    @GetMapping
+    private static final Logger log = LoggerFactory.getLogger(UserController.class)
+
+    @GetMapping("/{userId}")
     @ResponseStatus(OK)
-    List<UserOutput> list() {
-        return List.of(
-                new UserOutput("firstName1", "lastName1", "1@email.com"),
-                new UserOutput("firstName2", "lastName2", "2@gmail.com"))
+    UserOutput get(@PathVariable(name = "userId") String id) {
+        log.info("get >> ${id}")
+
+        return new UserOutput(
+                id: id,
+                firstName: "Johann",
+                lastName: "Fazakas",
+                email: "johannfazakas@gmail.com"
+        )
+    }
+
+    @PostMapping("/login")
+    @ResponseStatus(OK)
+    UserOutput login(@RequestBody LoginInput input) {
+        log.info("login >> ${input}")
+
+        return new UserOutput(
+                id: UUID.randomUUID(),
+                firstName: "Johann",
+                lastName: "Fazakas",
+                email: input.getEmail()
+        )
+    }
+
+
+    @PostMapping
+    @ResponseStatus(CREATED)
+    UserOutput create(@RequestBody UserInput input) {
+        log.info("create >> ${input}")
+
+        return new UserOutput(
+                id: UUID.randomUUID(),
+                firstName: input.firstName,
+                lastName: input.lastName,
+                email: input.email
+        )
     }
 }
