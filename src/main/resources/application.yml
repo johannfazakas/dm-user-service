@@ -1,2 +1,9 @@
-spring.application.name: dm-user-service
 server.port: 9010
+spring:
+  application:
+    name: dm-user-service
+  data:
+    mongodb:
+      authentication-database: admin
+      database: dm-user-service
+      uri: mongodb://localhost:27017
